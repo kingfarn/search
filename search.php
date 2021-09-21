@@ -1,10 +1,15 @@
 <?php
 
+//require header && connet the file that creats connection to elasticsearch
+
 include_once 'header.php';
 require_once 'connect.php';
-
+//make empty array of query with null hits and totals so we don't get erorr .
 $query = [];
 $query['hits']['total'] = null;
+
+//chicking if searhing button has been pressed if so difine searching as ewqulas get request of button
+//build a query that searching inde your index form body(_source)with query that looking for searching as string 
 
 if (isset($_GET['searching'])) {
     $searching = $_GET['searching'];
@@ -26,7 +31,7 @@ if (isset($_GET['searching'])) {
     );
 }
 
-
+//getting back hits 
 if ($query['hits']['total'] >= 1) {
     $results = $query['hits']['hits'];
 }
