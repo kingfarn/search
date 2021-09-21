@@ -4,11 +4,11 @@ include_once 'header.php';
 require_once 'connect.php';
 
 
-create_index();
+//create_index();
 
 create_pipline();
 
-function create_index()
+/*function create_index()
 {
     global $client;
     $params = [
@@ -16,7 +16,7 @@ function create_index()
         'id'    => 'my_id'
     ];
     $response = $client->index($params);
-}
+}*/
 
 function create_pipline()
 {
