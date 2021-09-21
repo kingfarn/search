@@ -1,0 +1,7 @@
+{
+    "require": {
+        "elasticsearch/elasticsearch": "^7.0"
+    },"files": [
+        "app/helpers.php"
+    ]
+}
