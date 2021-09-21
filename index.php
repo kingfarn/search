@@ -13,7 +13,6 @@ create_pipline();
     global $client;
     $params = [
         'index' => 'my_index',
-        'id'    => 'my_id'
     ];
     $response = $client->index($params);
 }*/
