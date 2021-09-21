@@ -2,4 +2,4 @@
 require_once 'vendor/autoload.php';
 use Elasticsearch\ClientBuilder;
 
-$client = ClientBuilder::create()->build();
+$client = ClientBuilder::create()->setHosts(['127.0.0.1:9200'])->build();
