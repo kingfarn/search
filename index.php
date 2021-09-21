@@ -1,10 +1,15 @@
 <?php
 
+//require header && connet the file that creats connection to elasticsearch
 include_once 'header.php';
 require_once 'connect.php';
 
 
+//create index function for creating index
 //create_index();
+
+//create pipline function for creating pipline add ingest to the index ,
+//create attachment
 
 create_pipline();
 
@@ -12,7 +17,7 @@ create_pipline();
 {
     global $client;
     $params = [
-        'index' => 'my_index',
+        'index' => 'inl_index',
     ];
     $response = $client->index($params);
 }*/
@@ -37,6 +42,7 @@ function create_pipline()
 }
 
 // // ---------------------------------------
+//creating arrayfiles for uploading multiplefile together
 
 function reArrayFiles(&$file_post)
 {
@@ -53,6 +59,8 @@ function reArrayFiles(&$file_post)
     return $file_ary;
 }
 
+//uploading file/files to upload  folder after that run ingest_processor_indexing function to index file to your index chanig file to base64 binary 
+
 if (isset($_FILES['file'])) {
     $file_ary = reArrayFiles($_FILES['file']);
 
@@ -64,7 +72,13 @@ if (isset($_FILES['file'])) {
 }
 
 // ---------------------------------------
+//pdf files can uploded in 3 ways to index pdf
+//1- by ingest attachment plugin like this one.
+//2-Mapper Plugins whicha adds attachment type when mapping properties so that documents can be populated with file attachment contents (encoded as base64).
+//3-by fscrawler which makes uploading files esaier but for reading and geting back files it's hard becouse you need to manualy run commmond after every upload 
+// (all i tried maybe there is a way but i didn't come across it).
 
+//indexing files to your index changing file content to binary becouse elastic doesn't read pdf directory
 function ingest_processor_indexing($filename)
 {
     global $client;
@@ -80,7 +94,7 @@ function ingest_processor_indexing($filename)
 }
 
 // ---------------------------------------
-
+//geting back all documents inside that index
 $params = [
     'index' => 'inl_index',
     'body' => [
@@ -89,7 +103,7 @@ $params = [
         ]
     ]
 ];
-
+//getting resulats form elasticsearch
 $results = $client->search($params);
 $r = $results["hits"]["hits"];
 $total = $results["hits"]["total"];
